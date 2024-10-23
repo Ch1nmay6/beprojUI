@@ -17,9 +17,7 @@ def upload_video():
         label_video_input.config(text="Video Selected: " + file_path)
 
 def process_inputs():
-    # This is where you would integrate your deepfake detection model
-    # Assume the inputs have been processed and give a dummy output
-    result = "Fake"  # Example result from your model
+    result = "Fake"
     label_result.config(text="Detection Result: " + result)
 
 # Create main window
