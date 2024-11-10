@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multimodal Deepfake Detection</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            background-image: url('E:\Misc\Wallpapers\One Piece Episode 968 - AniMixPlay - Google Chrome 7_28_2021 6_37_28 PM.png'); /* Add your background image path here */
+            background-size: cover; /* Makes the image cover the whole screen */
+            background-position: center; /* Centers the background image */
+        }
+        .input-section {
+            display: flex;
+            gap: 20px;
+        }
+        .input-frame {
+            border: 2px solid white;
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+        .input-frame input {
+            display: none;
+        }
+        .progress-bar-container {
+            margin-top: 20px;
+            width: 300px;
+            height: 20px;
+            background-color: #555;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        .progress-bar {
+            width: 0;
+            height: 100%;
+            background-color: #76c7c0;
+        }
+        #status {
+            margin-top: 20px;
+            font-size: 1.2em;
+        }
+        #result {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Multimodal Deepfake Detection</h1>
+
+<div class="input-section">
+    <div class="input-frame">
+        <h3>Image Input</h3>
+        <button onclick="uploadImage()">Upload Image</button>
+        <p id="image-input-status">No Image Selected</p>
+        <input type="file" id="image-upload" accept="image/png, image/jpeg" onchange="updateImageStatus()">
+    </div>
+    <div class="input-frame">
+        <h3>Audio Input</h3>
+        <button onclick="uploadAudio()">Upload Audio</button>
+        <p id="audio-input-status">No Audio Selected</p>
+        <input type="file" id="audio-upload" accept="audio/mp3, audio/wav" onchange="updateAudioStatus()">
+    </div>
+    <div class="input-frame">
+        <h3>Video Input</h3>
+        <button onclick="uploadVideo()">Upload Video</button>
+        <p id="video-input-status">No Video Selected</p>
+        <input type="file" id="video-upload" accept="video/mp4, video/avi" onchange="updateVideoStatus()">
+    </div>
+</div>
+
+<button onclick="processInputs()">Process Inputs</button>
+
+<div class="progress-bar-container">
+    <div id="progress-bar" class="progress-bar"></div>
+</div>
+
+<p id="result">Detection Result: </p>
+<p id="status">Waiting for input...</p>
+
+<script>
+    function uploadImage() {
+        document.getElementById("image-upload").click();
+    }
+
+    function updateImageStatus() {
+        const input = document.getElementById("image-upload");
+        if (input.files.length > 0) {
+            document.getElementById("image-input-status").textContent = "Image Selected";
+        }
+    }
+
+    function uploadAudio() {
+        document.getElementById("audio-upload").click();
+    }
+
+    function updateAudioStatus() {
+        const input = document.getElementById("audio-upload");
+        if (input.files.length > 0) {
+            document.getElementById("audio-input-status").textContent = "Audio Selected";
+        }
+    }
+
+    function uploadVideo() {
+        document.getElementById("video-upload").click();
+    }
+
+    function updateVideoStatus() {
+        const input = document.getElementById("video-upload");
+        if (input.files.length > 0) {
+            document.getElementById("video-input-status").textContent = "Video Selected";
+        }
+    }
+
+    function processInputs() {
+        const imageStatus = document.getElementById("image-input-status").textContent;
+        const audioStatus = document.getElementById("audio-input-status").textContent;
+        const videoStatus = document.getElementById("video-input-status").textContent;
+
+        if (imageStatus === "No Image Selected" && audioStatus === "No Audio Selected" && videoStatus === "No Video Selected") {
+            alert("Please upload at least one input.");
+            return;
+        }
+
+        document.getElementById("status").textContent = "Processing...";
+        simulateProgress();
+    }
+
+    function simulateProgress() {
+        let progress = 0;
+        const progressBar = document.getElementById("progress-bar");
+
+        const interval = setInterval(() => {
+            progress += 5;
+            progressBar.style.width = progress + "%";
+            if (progress >= 100) {
+                clearInterval(interval);
+                finishProcessing();
+            }
+        }, 100);
+    }
+
+    function finishProcessing() {
+        document.getElementById("status").textContent = "Processing complete";
+        document.getElementById("result").textContent = "Detection Result: Fake"; // Example result
+    }
+</script>
+
+</body>
+</html>
